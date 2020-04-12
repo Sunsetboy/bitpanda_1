@@ -17,4 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// get only active Austrians
 Route::get('/austrians', 'UserController@austrians');
+
+// edit details of a user only if details exist
+Route::put('/users/{id}/details', 'UserController@editDetails');

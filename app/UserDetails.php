@@ -9,6 +9,12 @@ class UserDetails extends Model
     protected $table = 'user_details';
     public $timestamps = false;
 
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'phone_number',
+    ];
+
     /**
      * Get User record associated with userDetails
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
