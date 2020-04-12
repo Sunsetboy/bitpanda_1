@@ -27,6 +27,8 @@ class User extends Model
             Country::class,
             UserDetails::class,
             'user_id',
+            'id',
+            'id',
             'citizenship_country_id'
         );
     }
