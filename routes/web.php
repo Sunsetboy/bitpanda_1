@@ -22,3 +22,6 @@ Route::get('/austrians', 'UserController@austrians');
 
 // edit details of a user only if details exist
 Route::put('/users/{id}/details', 'UserController@editDetails');
+
+// delete a user only if details not exist
+Route::delete('/users/{id}', 'UserController@delete');

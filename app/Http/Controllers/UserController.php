@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -12,20 +13,18 @@ class UserController extends Controller
      */
     public function austrians()
     {
-        $activeAustrians = User::whereHas('country', function ($query) {
-                $query->where('iso2', '=',"AT");
-            })->where('active', 1)
+        return User::whereHas('country', function ($query) {
+            $query->where('iso2', '=', "AT");
+        })->where('active', 1)
             ->with('country')
             ->get();
-
-        return $activeAustrians;
     }
 
     /**
      * Updates the user details only if they already exist
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return array
      */
     public function editDetails(Request $request, $id)
     {
@@ -34,7 +33,7 @@ class UserController extends Controller
             ->with('details')
             ->first();
 
-        if(!($user instanceof User)) {
+        if (!($user instanceof User)) {
             abort(404, 'User with existing details not found');
         }
 
@@ -44,5 +43,28 @@ class UserController extends Controller
         $details->update($newAttributes);
 
         return $user->details;
+    }
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function delete($id)
+    {
+        $user = User::doesntHave('details')
+            ->where([
+                ['id', '=', $id],
+                ['active', '=', 1]
+            ])
+            ->first();
+
+        if (!($user instanceof User)) {
+            abort(404);
+        }
+
+        $user->active = 0;
+        $user->save();
+
+        return 'User is deleted successfully';
     }
 }

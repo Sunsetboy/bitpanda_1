@@ -15,10 +15,12 @@ In this DB there are 3 tables: `users`, `countries` and `user_details`.
 
 * [ ] Create a call which will return all the users which are `active` (users table) and have an Austrian citizenship.
 
-```GET http://127.0.0.1:8000/austrians```
+```GET /austrians```
 
 * [ ] Create a call which will allow you to edit user details just if the user details are there already.
 
 ```PUT /users/{id}/details```
 
 * [ ] Create a call which will allow you to delete a user just if no user details exist yet.
+
+```DELETE /users/2```
